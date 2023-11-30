@@ -207,3 +207,34 @@ loadMoreBtn.onclick = () => {
     loadMoreBtn.style.display = "none";
   }
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all Add to Cart buttons
+  var addToCartButtons = document.querySelectorAll(".populer-slider .btn");
+
+  // Add click event listener to each button
+  addToCartButtons.forEach(function (button, index) {
+    button.addEventListener("click", function () {
+      // Get product information
+      var item = {
+        name: document.querySelectorAll(".populer-slider h3")[index].textContent,
+        price: document.querySelectorAll(".populer-slider .price")[index].textContent,
+        image: document.querySelectorAll(".populer-slider img")[index].getAttribute("src"),
+      };
+      // Check if there's already cart data in localStorage
+      var cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Add the current product to the cart
+      cart.push(item);
+
+      // Save the updated cart back to localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Optionally, you can provide feedback to the user (e.g., show a message or update a cart icon)
+      alert("Product added to cart!");
+
+      // You can also redirect to the cart page if needed
+       window.location.href = "cart.html";
+    });
+  });
+});
